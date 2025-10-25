@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw_bmw_sales # Nombre para esta fuente de datos
+    database: fluid-mind-476121-g8 # ID del proyecto en GCP
+    schema: raw_data             # Dataset de BigQuery donde se almacenan los datos crudos
+    tables:
+      - name: bmw_sales_raw       # Nombre de la tabla de datos crudos

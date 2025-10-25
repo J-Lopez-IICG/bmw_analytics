@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: fct_sales
+    description: "Tabla de hechos central. Una fila por venta. Contiene métricas y claves foráneas."
+    columns:
+      - name: sale_id
+        description: "Clave primaria de la venta."
+        tests:
+          - unique
+          - not_null
+
+      - name: model_id
+        description: "Clave foránea para dim_model."
+        tests:
+          - not_null
+          # Test de Relación (Foreign Key):
+          # Esto prueba que cada model_id en fct_sales
+          # existe en la columna model_id de dim_model.
+          - relationships:
+              arguments:
+                to: ref('dim_model')
+                field: model_id
+
+      - name: region_id
+        description: "Clave foránea para dim_region."
+        tests:
+          - not_null
+          # Test de Relación (Foreign Key)
+          - relationships:
+              arguments:
+                to: ref('dim_region')
+                field: region_id
+
+      - name: price_usd
+        description: "Métrica: Precio de la venta."
+        tests:
+          - not_negative
+
+  - name: dim_model
+    description: "Dimensión de vehículos. Una fila por combinación única de atributos."
+    columns:
+      - name: model_id
+        description: "Clave primaria de la dimensión de modelo."
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_region
+    description: "Dimensión de regiones. Una fila por región."
+    columns:
+      - name: region_id
+        description: "Clave primaria de la dimensión de región."
+        tests:
+          - unique
+          - not_null

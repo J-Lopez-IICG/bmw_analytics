@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: stg_bmw_sales
+    description: "Capa de Staging para los datos de ventas de BMW. Limpia nombres de columnas, genera una clave única (sale_id) y aplica tests de calidad de datos básicos. Una fila por venta."
+
+    columns:
+      # Testeamos nuestra nueva clave 
+      - name: sale_id
+        description: "Clave subrogada (surrogate key) generada para identificar cada venta de forma única."
+        tests:
+          - unique      # Prueba que no haya IDs duplicados
+          - not_null    # Prueba que el ID no sea nulo
+
+      # Testeamos columnas de negocio 
+      - name: model
+        description: "El modelo del vehículo BMW."
+        tests:
+          - not_null   
+
+      - name: year
+        description: "El año de fabricación del vehículo."
+        # El test de rango se define en un archivo SQL separado en la carpeta /tests
+
+      - name: region
+        description: "Región donde se realizó la venta."
+        tests:
+          - not_null
+
+      - name: price_usd
+        description: "Precio de venta final en dólares (USD)."
+        tests:
+          - not_null 
+
+      # Test de valores aceptados 
+      - name: transmission
+        description: "Tipo de transmisión."
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Manual', 'Automatic']
+
+      # --- Columnas solo con descripción ---
+      - name: color
+        description: "Color del vehículo."
+
+      - name: fuel_type
+        description: "Tipo de combustible."
+
+      - name: engine_size_l
+        description: "Tamaño del motor en litros."
+
+      - name: mileage_km
+        description: "Kilometraje del vehículo en KM."
+
+      - name: sales_volume
+        description: "Volumen de ventas."
+
+      - name: sales_classification
+        description: "Clasificación de la venta."
