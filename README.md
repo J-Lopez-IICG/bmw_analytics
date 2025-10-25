@@ -8,13 +8,12 @@
 
 Este proyecto sigue una arquitectura de datos en capas, una práctica recomendada que promueve la modularidad, el mantenimiento y la calidad de los datos.
 
-*   **Capa Source (`sources`):** Define el punto de entrada de los datos crudos. Apunta a la tabla `bmw_sales_raw` en BigQuery, actuando como el contrato de datos inicial.
-
 *   **Capa Staging (`models/staging`):** Es la primera capa de transformación. Su responsabilidad es limpiar los datos crudos:
     *   Renombra columnas a un formato estándar (`snake_case`).
     *   Estandariza los tipos de datos (`CAST`).
     *   Genera una clave subrogada (`sale_id`) para identificar de forma única cada fila.
     *   El modelo principal aquí es `stg_bmw_sales`.
+    *   Define el punto de entrada de los datos crudos. Apunta a la tabla `bmw_sales_raw` en BigQuery, actuando como el contrato de datos inicial.(`sources`)
 
 *   **Capa de Marts (`models/staging/marts`):** Es la capa final, diseñada para el consumo por herramientas de Business Intelligence (BI) o analistas. Implementa un **esquema de estrella** para facilitar las consultas.
     *   **Tablas de Dimensiones (`dim_`):** Describen las entidades de negocio. Ej: `dim_model`, `dim_region`.
