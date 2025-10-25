@@ -30,7 +30,7 @@ WITH model_data AS (
 SELECT
   -- Creamos una clave subrogada (Surrogate Key) para esta dimensión.
   -- Esta será la 'model_id' que usaremos en la tabla de hechos.
-  {{ generate_surrogate_key(
+  {{ dbt_utils.generate_surrogate_key(
       ['model', 'year', 'fuel_type', 'transmission', 'engine_size_l', 'color']
   ) }} AS model_id,
 

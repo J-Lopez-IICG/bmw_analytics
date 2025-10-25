@@ -35,7 +35,10 @@ models:
       - name: price_usd
         description: "Métrica: Precio de la venta."
         tests:
-          - not_negative
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: ">= 0"
+          - not_null
 
   - name: dim_model
     description: "Dimensión de vehículos. Una fila por combinación única de atributos."

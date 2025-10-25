@@ -14,7 +14,7 @@ Materialización: Tabla
 SELECT
   DISTINCT
   -- Creamos una clave subrogada para la región
-  {{ generate_surrogate_key(['region']) }} AS region_id,
+  {{ dbt_utils.generate_surrogate_key(['region']) }} AS region_id,
   region
 FROM
   {{ ref('stg_bmw_sales') }}

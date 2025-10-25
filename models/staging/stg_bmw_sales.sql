@@ -27,8 +27,7 @@ WITH source_data AS (
 
 SELECT
     -- Generación de Clave Subrogada (Surrogate Key) 
-    -- Usamos nuestra macro local para crear un ID único para la venta
-    {{ generate_surrogate_key(['model', 'year', 'region', 'mileage_km', 'price_usd']) }} AS sale_id,
+    {{ dbt_utils.generate_surrogate_key(['model', 'year', 'region', 'mileage_km', 'price_usd']) }} AS sale_id,
 
     -- Seleccionamos el resto de las columnas
     model,
