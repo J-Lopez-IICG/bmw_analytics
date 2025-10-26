@@ -5,5 +5,5 @@ select
     year
 from {{ ref('stg_bmw_sales') }}
 where
-    -- La columna 'year' ya es numérica gracias al CAST en el modelo de staging.
-    year < 2010 or year > 2024
+--Macro personalizado para verificar si el año está en el rango válido
+    {{ is_in_valid_year_range('year') }}
